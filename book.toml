@@ -1,0 +1,6 @@
+[book]
+authors = ["Samuel Kriikkula"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Interp-Book"
