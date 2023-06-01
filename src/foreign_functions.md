@@ -38,7 +38,7 @@ use interplang::vm::value::Value;
 use interplang::parser::loc::Loc;
 
 #[no_mangle]
-pub extern "C" fn Interp_Hello(args: Vec<(Value, Loc)>, loc: Loc) -> Value {
+pub fn Interp_Hello(args: Vec<(Value, Loc)>, named_args: Vec<(String, Value, Loc)>, loc: Loc) -> Value {
     Value::String("Hello".to_owned())
 }
 ```

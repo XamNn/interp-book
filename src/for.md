@@ -1,6 +1,6 @@
 # For Loop
 
-For loops in Interp are unlike in other languages. They are simply a syntatic sugar.
+Do loops in Interp are unlike in other languages. They are simply a syntatic sugar.
 
 Let's define an iterator function:
 ```cs
@@ -16,7 +16,7 @@ fun Range(function Function<Int, Void>, from Int, to Int) {
 
 These two are identical!
 ```cs
-for i in Range(0, 10) {
+do i in Range(0, 10) {
     Print(i);
 }
 

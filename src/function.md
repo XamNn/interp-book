@@ -33,6 +33,17 @@ Print(take_ref);
 # Output: 2
 ```
 
+## Default and named parameters
+
+Default values for paramters are allowed. Parameters can also be referred with their name.
+```cs
+fun Function(int foo, string bar = "default_string", baz Bool = false) {
+    ...
+}
+
+Function(1, baz=true) # allowed
+```
+
 ## Lambda Functions
 Lambdas are a shorthand for defining functions.
 ```cs
@@ -40,7 +51,7 @@ fun ExecLambda(lambda Any) {
     lambda(1, 2);
 }
 
-ExecLambda((a, b) => Print(a + b));
+ExecLambda(|a, b| => Print(a + b));
 # Output: 3
 ```
 

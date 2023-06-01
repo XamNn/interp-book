@@ -10,6 +10,10 @@ Lists can be indexed with [Ints](./int.md), index 0 is the first element.
 ```cs
 list[0]
 ```
+Negative indicies start from the end, index -1 is the last element.
+```cs
+list[-1]
+```
 
 ## Concatenation
 Lists can be concatenated with the `+` operator.

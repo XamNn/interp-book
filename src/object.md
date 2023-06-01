@@ -1,5 +1,5 @@
-# Object
-Objects (or Dicts) are the most powerful Value in the language.
+# Keyable
+Keytables (or Dicts) are the most powerful Value in the language.
 They contain key-value-pairs. Keys and Values can be of any [Type](./type.md).
 
 Objects can be constructed in a few ways:

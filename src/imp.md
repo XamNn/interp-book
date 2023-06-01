@@ -12,3 +12,4 @@ imp "imp_this.it"
 # output: Hello
 ```
 You can also import a [String](./string.md) variable.
+Note: Imports are cached, you can't import the same file twice.
