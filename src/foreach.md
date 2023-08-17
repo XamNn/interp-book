@@ -9,7 +9,7 @@ fun ForEach(function Function<Any, Void>, list List) {
     }
 }
 
-for item in ForEach([1, 2, 3]) {
+do or item in ForEach([1, 2, 3]) {
     Print(item);
 }
 

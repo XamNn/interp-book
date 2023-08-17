@@ -5,7 +5,7 @@ Print a value to standard out followed by a newline.
 Print(1);
 ```
 
-Print also can take a second argument, an object that contains options.
+Print also can take a few optional arguments.
 ```cs
 Print(
     1,

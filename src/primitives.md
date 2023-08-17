@@ -9,5 +9,5 @@ Interp implements the following primitives. They can be stored into [variables](
 - [Float](./float.md)
 - [Bool](./bool.md)
 - [List](./list.md)
-- [Keytable](./object.md)
+- [Record](./record.md)
 - [Function](./function.md)

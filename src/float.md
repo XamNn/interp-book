@@ -17,5 +17,7 @@ The following mathematical operators are supported
 ```
 
 ## As a type
+The Float type accepts all floating point numbers.
+
 Value ranges can be expressed as a type.
-`Int[1.2 .. 3.4]` accepts a Float that is >= 1.2 & < 3.4.
+`Float[1.2 .. 3.4]` accepts a Float that is >= 1.2 & < 3.4.

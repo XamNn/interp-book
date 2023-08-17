@@ -51,5 +51,5 @@ pub HelloFunction = ImportForeign(
 );
 
 Print(HelloFunction());
-# outpuit: Hello
+# output: Hello
 ```

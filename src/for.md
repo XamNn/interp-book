@@ -1,4 +1,4 @@
-# For Loop
+# Do Loop
 
 Do loops in Interp are unlike in other languages. They are simply a syntatic sugar.
 

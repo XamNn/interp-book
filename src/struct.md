@@ -1,6 +1,6 @@
 # Structs
 
-Structs define a type that matches any object that has the specified fiels and types.
+Structs define a type that matches any record that has the specified fiels and types.
 ```cs
 struct Dog {
     breed String,

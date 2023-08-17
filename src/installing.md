@@ -1,3 +1,3 @@
 # Installing
 
-Source code not yet available..
+Try to find the source code if you can.

@@ -17,5 +17,7 @@ The following mathematical operators are supported
 ```
 
 ## As a type
+The Int type matches all integers.
+
 Value ranges can be expressed as a type.
 `Int[0..10]` accepts an Int that is >= 0 & < 10.

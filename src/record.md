@@ -1,8 +1,8 @@
 # Keyable
-Keytables (or Dicts) are the most powerful Value in the language.
+Records (or Dicts) are the most powerful Value in the language.
 They contain key-value-pairs. Keys and Values can be of any [Type](./type.md).
 
-Keytables can be constructed in a few ways:
+Records can be constructed in a few ways:
 ```cs
 var table = {foo = 1, bar = 2};
 
@@ -22,7 +22,7 @@ Print(third_table);
 ```
 
 ## KeyValuePairs
-You can iterate all field of an object with the KeyValuePairs function.
+You can iterate all field of an record with the KeyValuePairs function.
 ```cs
 var table = {a = 1, b = 2};
 Print(KeyValuePairs(table));

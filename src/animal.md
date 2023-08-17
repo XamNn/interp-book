@@ -28,4 +28,4 @@ var bob = animals::Animal(animals::Cat, "Bob", 2);
 Print(bob);
 # output: {"type" = Atom("animals::Cat"), "name" = "Bob", "age" = 2}
 ```
-> Read more about [modules](./module.md), [Atoms](./atom.md), [Enums](./enum.md), [Structs](./struct.md), [Integers](./int.md), [Strings](./string.md), [Keytables](./object.md), [Functions](./function.md), [variables](./variable.md), or [Print](./Print.md)
+> Read more about [modules](./module.md), [Atoms](./atom.md), [Enums](./enum.md), [Structs](./struct.md), [Integers](./int.md), [Strings](./string.md), [Records](./record.md), [Functions](./function.md), [variables](./variable.md), or [Print](./Print.md)

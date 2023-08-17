@@ -29,6 +29,14 @@ Print(Len([1, 2, 3]));
 # output: 3
 ```
 
+## Slice
+Lists can be sliced with the `..` operator.
+```cs
+var list = [1, 2, 3, 4];
+var slice = list[1, 3];
+# slice == [2, 3]
+```
+
 ## As a Type
 To match all lists, simply use `List` .
 To match a list which all values match a type, you can use a generic type argument.
