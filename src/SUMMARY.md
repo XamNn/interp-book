@@ -38,3 +38,5 @@
 - [Debugging](./debugging.md)
 - [Foreign Functions](./foreign_functions.md)
 - [Package Managing - Packi](./packi.md)
+- [Libraries](./libraries.md)
+    - [Oak](./oak.md)

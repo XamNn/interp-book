@@ -33,7 +33,7 @@ Print(Len([1, 2, 3]));
 Lists can be sliced with the `..` operator.
 ```cs
 var list = [1, 2, 3, 4];
-var slice = list[1, 3];
+var slice = list[1..3];
 # slice == [2, 3]
 ```
 
