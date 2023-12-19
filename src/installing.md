@@ -1,3 +1,3 @@
 # Installing
 
-Try to find the source code if you can.
+Source code can be found [here](https://gitlab.com/interplang/interplang) (dev branch).

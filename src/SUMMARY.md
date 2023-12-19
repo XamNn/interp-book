@@ -40,3 +40,5 @@
 - [Package Managing - Packi](./packi.md)
 - [Libraries](./libraries.md)
     - [Oak](./oak.md)
+    - [ap](./ap.md)
+    - [curl](./curl.md)
