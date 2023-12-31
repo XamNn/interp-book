@@ -29,6 +29,7 @@ var take_ref = 1;
 fun AddOne(arg Int) {
     var += 1;
 }
+AddOne(ref take_ref);
 Print(take_ref);
 # Output: 2
 ```
