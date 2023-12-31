@@ -33,3 +33,10 @@ Strings can be formatted with the `Format` function.
 Print(Format("{} + {} = {}", 1, 2, 1 + 2));
 # Output = 1 + 2 = 3
 ```
+
+## Interpolation
+Another way to format is interpolation.
+```cs
+Print("1 + 2 = {1 + 2}");
+# Output = 1 + 2 = 3
+```

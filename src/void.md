@@ -4,7 +4,7 @@ Void (keyword `void`) has two uses.
 
 ## Denoting 'nonexistent'
 When you reference a [variable](./variable.md) or [field](./record.md) that does not exist, you will get Void.
-This will also usually throw an [error](./error.md), except when checking if something is void.
+This will also usually throw an error, except when checking if something is void.
 
 Assuming `variable` does not exist.
 
