@@ -45,3 +45,6 @@ fun TakesIntList(arg List<Int>) {
     Print(arg)
 }
 ```
+
+## Void
+Lists can't contain void. If an indexing operation returns void, it's outside of the list bounds.
