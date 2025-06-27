@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Oak - Interp-Book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Interp-Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="oak"><a class="header" href="#oak">Oak</a></h1>
+<p>Oak is the de-facto standard library for the language.
+<a href="https://packi.kriikkula.net/oak">Get from Packi</a>.</p>
+<hr />
+<h2 id="fs-module"><a class="header" href="#fs-module">fs module</a></h2>
+<hr />
+<h3 id="setworkingdirdir-string-bool-or-null"><a class="header" href="#setworkingdirdir-string-bool-or-null">SetWorkingDir(dir String) Bool or Null</a></h3>
+<p>Set the current working directory.</p>
+<hr />
+<h3 id="globglob-string-liststring"><a class="header" href="#globglob-string-liststring">Glob(glob String) List&lt;String&gt;</a></h3>
+<p>List files with a unix glob.</p>
+<hr />
+<h3 id="enum-filetype"><a class="header" href="#enum-filetype">enum FileType</a></h3>
+<p>File<br />
+Directory</p>
+<p>Specifies if a file is a dictory or a regular file.</p>
+<hr />
+<h3 id="filetypefile-string-filetype-or-null"><a class="header" href="#filetypefile-string-filetype-or-null">FileType(file String) FileType or Null</a></h3>
+<p>List files with a unix glob.</p>
+<hr />
+<h3 id="makedirname-string"><a class="header" href="#makedirname-string">MakeDir(name String)</a></h3>
+<p>Create a new directory.</p>
+<hr />
+<h3 id="removefile-string-mode-filetype"><a class="header" href="#removefile-string-mode-filetype">Remove(file String, mode FileType)</a></h3>
+<p>Delete a file or directory.</p>
+<hr />
+<h2 id="iter-module"><a class="header" href="#iter-module">iter module</a></h2>
+<hr />
+<h3 id="foreachfunction-functionany-void-iterable-iterable"><a class="header" href="#foreachfunction-functionany-void-iterable-iterable">ForEach(function Function&lt;Any, Void&gt;, iterable Iterable)</a></h3>
+<p>Iterate and apply the function to each of the items in a list or characters in a string.</p>
+<hr />
+<h3 id="range"><a class="header" href="#range">Range</a></h3>
+<p>Apply function to every integer between the specified range.
+The step is the amount incremented after each integer.</p>
+<hr />
+<h3 id="loopfunction-function"><a class="header" href="#loopfunction-function">Loop(function Function)</a></h3>
+<p>Apply the function indefinitely.
+Break can be called inside the function.</p>
+<hr />
+<h3 id="zipfunction-function-list0-iterable-list1-iterable"><a class="header" href="#zipfunction-function-list0-iterable-list1-iterable">Zip(function Function, list0 Iterable, list1 Iterable)</a></h3>
+<p>Applies the function to corresponding items in both lists.
+For example: function(list0[0], list1[0]); function(list0[1], list1[1]);</p>
+<hr />
+<h3 id="findhaystack-iterable-needle-any-int-or-null"><a class="header" href="#findhaystack-iterable-needle-any-int-or-null">Find(haystack Iterable, needle Any) Int or Null</a></h3>
+<p>Return the index of the item in the list.
+Returns null if the item is not present inside the list.</p>
+<hr />
+<h3 id="containshaystack-iterable-needle-any-bool"><a class="header" href="#containshaystack-iterable-needle-any-bool">Contains(haystack Iterable, needle Any) Bool</a></h3>
+<p>Returns true if the list contains the item.</p>
+<hr />
+<h2 id="list-module"><a class="header" href="#list-module">list module</a></h2>
+<hr />
+<h3 id="reverselist-list-list"><a class="header" href="#reverselist-list-list">Reverse(list List) List</a></h3>
+<p>Reverses the list.</p>
+<hr />
+<h3 id="initializesize-int0-value-any-list"><a class="header" href="#initializesize-int0-value-any-list">Initialize(size Int[0..], value Any) List</a></h3>
+<p>Initialize a list of size with the specified value as each element.</p>
+<hr />
+<h2 id="math-module"><a class="header" href="#math-module">math module</a></h2>
+<hr />
+<h3 id="sinn-float-float"><a class="header" href="#sinn-float-float">Sin(n Float) Float</a></h3>
+<p>Sine function</p>
+<hr />
+<h3 id="cosn-float-float"><a class="header" href="#cosn-float-float">Cos(n Float) Float</a></h3>
+<p>Cosine function</p>
+<hr />
+<h3 id="tann-float-float"><a class="header" href="#tann-float-float">Tan(n Float) Float</a></h3>
+<p>Tangent function</p>
+<hr />
+<h3 id="asinn-float-float"><a class="header" href="#asinn-float-float">Asin(n Float) Float</a></h3>
+<p>Arcsine function</p>
+<hr />
+<h3 id="acosn-float-float"><a class="header" href="#acosn-float-float">Acos(n Float) Float</a></h3>
+<p>Arc cosine function</p>
+<hr />
+<h3 id="atann-float-float"><a class="header" href="#atann-float-float">Atan(n Float) Float</a></h3>
+<p>Inverse tangent function</p>
+<hr />
+<h3 id="sinhn-float-float"><a class="header" href="#sinhn-float-float">Sinh(n Float) Float</a></h3>
+<p>Hyperbolic sine function</p>
+<hr />
+<h3 id="coshn-float-float"><a class="header" href="#coshn-float-float">Cosh(n Float) Float</a></h3>
+<p>Hyperbolic cosine function</p>
+<hr />
+<h3 id="atan2n-float-n2-float-float"><a class="header" href="#atan2n-float-n2-float-float">Atan2(n Float, n2 Float) Float</a></h3>
+<p>2-argument arctangent function</p>
+<hr />
+<h3 id="maxnumbers-listnumber-number"><a class="header" href="#maxnumbers-listnumber-number">Max(numbers List&lt;Number&gt;) Number</a></h3>
+<p>Returns the largest nubmer.</p>
+<hr />
+<h3 id="minnumbers-listnumber-number"><a class="header" href="#minnumbers-listnumber-number">Min(numbers List&lt;Number&gt;) Number</a></h3>
+<p>Returns the smallest number.</p>
+<hr />
+<h2 id="os-module"><a class="header" href="#os-module">os module</a></h2>
+<hr />
+<h3 id="enum-os"><a class="header" href="#enum-os">enum OS</a></h3>
+<p>Windows, Linux, MacOS</p>
+<p>Type of the current operating system.</p>
+<hr />
+<h3 id="shellcommand-string-capture-bool--true-string-or-null"><a class="header" href="#shellcommand-string-capture-bool--true-string-or-null">Shell(command String, capture Bool = true) String or Null</a></h3>
+<p>Execute a script on the default shell of the operating system.</p>
+<hr />
+<h3 id="quitn-int"><a class="header" href="#quitn-int">Quit(n Int)</a></h3>
+<p>Exit the current process.</p>
+<hr />
+<h2 id="string-module"><a class="header" href="#string-module">string module</a></h2>
+<hr />
+<h3 id="startswithstring-string-pattern-string-bool"><a class="header" href="#startswithstring-string-pattern-string-bool">StartsWith(string String, pattern String) Bool</a></h3>
+<p>Returns true if the string starts with the pattern.</p>
+<hr />
+<h3 id="endswithstring-string-pattern-string-bool"><a class="header" href="#endswithstring-string-pattern-string-bool">EndsWith(string String, pattern String) Bool</a></h3>
+<p>Returns true if the string ends with the pattern.</p>
+<hr />
+<h3 id="findstring-string-pattern-string-int-or-null"><a class="header" href="#findstring-string-pattern-string-int-or-null">Find(string String, pattern String) Int or Null</a></h3>
+<p>Returns the index of the patterns first character where the pattern is found in the string, or null.</p>
+<hr />
+<h3 id="containsstring-string-pattern-string-bool"><a class="header" href="#containsstring-string-pattern-string-bool">Contains(string String, pattern String) Bool</a></h3>
+<p>Returns true if the pattern is found as a substring inside the string.</p>
+<hr />
+<h3 id="trimstartstring-string-pattern-string-or-liststring--whitespace-string"><a class="header" href="#trimstartstring-string-pattern-string-or-liststring--whitespace-string">TrimStart(string String, pattern String or List&lt;String&gt; = WHITESPACE) String</a></h3>
+<p>Remove every occurance of the pattern(s) from the start of the string.</p>
+<hr />
+<h3 id="trimendstring-string-pattern-string-or-liststring--whitespace-string"><a class="header" href="#trimendstring-string-pattern-string-or-liststring--whitespace-string">TrimEnd(string String, pattern String or List&lt;String&gt; = WHITESPACE) String</a></h3>
+<p>Remove every occurance of the pattern(s) from the end of the string.</p>
+<hr />
+<h3 id="trimstring-string-pattern-string-or-liststring--whitespace-string"><a class="header" href="#trimstring-string-pattern-string-or-liststring--whitespace-string">Trim(string String, pattern String or List&lt;String&gt; = WHITESPACE) String</a></h3>
+<p>Remove every occurance of the pattern(s) from the string.</p>
+<hr />
+<h3 id="splitstring-string-separator-string---ignoreempties-bool--false-liststring"><a class="header" href="#splitstring-string-separator-string---ignoreempties-bool--false-liststring">Split(string String, separator String = "", ignoreEmpties Bool = false) List&lt;String&gt;</a></h3>
+<p>Splits the string into substrings.</p>
+<hr />
+<h3 id="replacestring-string-from-string-to-string-string"><a class="header" href="#replacestring-string-from-string-to-string-string">Replace(string String, from String, to String) String</a></h3>
+<p>Replace every occurance of "from" to "to".</p>
+<hr />
+<h3 id="joinstrings-liststring-separator-string---string"><a class="header" href="#joinstrings-liststring-separator-string---string">Join(strings List&lt;String&gt;, separator String = "") String</a></h3>
+<p>Join strings together separarted by another string.</p>
+<hr />
+<h3 id="chartounicodechar-string-int-or-null"><a class="header" href="#chartounicodechar-string-int-or-null">CharToUnicode(char String) Int or Null</a></h3>
+<p>Returns the unicode code point for the specified character.
+char must be a single character.</p>
+<hr />
+<h3 id="unicodetocharcodepoint-int-string-or-null"><a class="header" href="#unicodetocharcodepoint-int-string-or-null">UnicodeToChar(codepoint Int) String or Null</a></h3>
+<p>Returns the character for the specified unicode code point.
+char must be a single character.</p>
+<hr />
+<h3 id="lowercasestring-string-string"><a class="header" href="#lowercasestring-string-string">Lowercase(string String) String</a></h3>
+<p>Returns the lowercase variant of the string.</p>
+<hr />
+<h3 id="uppercasestring-string-string"><a class="header" href="#uppercasestring-string-string">Uppercase(string String) String</a></h3>
+<p>Returns the uppercase variant of the string.</p>
+<hr />
+<h2 id="time-module"><a class="header" href="#time-module">time module</a></h2>
+<hr />
+<h3 id="enum-duration"><a class="header" href="#enum-duration">enum Duration</a></h3>
+<p>Int[0..]</p>
+<p>Duration of time.</p>
+<hr />
+<h3 id="enum-time"><a class="header" href="#enum-time">enum Time</a></h3>
+<p>Int[0..]</p>
+<p>Represents a date/time.</p>
+<hr />
+<h3 id="millisecondsmilliseconds-int0-duration"><a class="header" href="#millisecondsmilliseconds-int0-duration">Milliseconds(milliseconds Int[0..]) Duration</a></h3>
+<p>Duration as milliseconds.</p>
+<hr />
+<h3 id="secondsseconds-int0-duration"><a class="header" href="#secondsseconds-int0-duration">Seconds(seconds Int[0..]) Duration</a></h3>
+<p>Duration as seconds.</p>
+<hr />
+<h3 id="minutesminutes-int0-duration"><a class="header" href="#minutesminutes-int0-duration">Minutes(minutes Int[0..]) Duration</a></h3>
+<p>Duration as minutes.</p>
+<hr />
+<h3 id="sleepduration-duration"><a class="header" href="#sleepduration-duration">Sleep(duration Duration)</a></h3>
+<p>Pause the thread for the specified duration of milliseconds.</p>
+<hr />
+<h3 id="now-time"><a class="header" href="#now-time">Now() Time</a></h3>
+<p>Get the current time in milliseconds .</p>
+<hr />
+<h3 id="elapsedtime-time-duration"><a class="header" href="#elapsedtime-time-duration">Elapsed(time Time) Duration</a></h3>
+<p>Returns the duration of time from the specified time to this moment as milliseconds.</p>
+<hr />
+<h3 id="formatdurationtime-duration-string"><a class="header" href="#formatdurationtime-duration-string">FormatDuration(time Duration) String</a></h3>
+<p>Get a nice format for a duration.</p>
+<hr />
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="libraries.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="ap.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="libraries.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="ap.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

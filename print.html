@@ -1,0 +1,1158 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Interp-Book</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Interp-Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="interp-the-language"><a class="header" href="#interp-the-language">Interp, the Language</a></h1>
+<blockquote>
+<p>Interp is currently in <strong>beta testing</strong>! Don't use it for production!</p>
+</blockquote>
+<p>Interp is a procedural general-purpose dynamically typed interpreted scrpiting language.
+Although it uses duck-typing, it also enforces type safety.
+The interplang interpreter is coded entirely in Rust, and the language can be extended by dynamic foreign functions programmed in pure Rust. Functions in Interp are first-class-citizens and can be assigned to variables and passed as arguments to other functions. Interp supports both 64-bit integers as well as 64-bit floating point numbers. The record in Interp is a map of sorts, with keys and values, these can be of whatever type. There are no classes, It's not an object oriented language!</p>
+<h2 id="start-here"><a class="header" href="#start-here">Start here!</a></h2>
+<ul>
+<li><a href="./installing.html">Installing</a></li>
+<li><a href="./helloworld.html">Hello, world!</a></li>
+<li><a href="./examples.html">Examples</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installing"><a class="header" href="#installing">Installing</a></h1>
+<p>Source code can be found <a href="https://gitlab.com/interplang/interplang">here</a> (dev branch).</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello, world!</a></h1>
+<h2 id="execute-a-source-code-file"><a class="header" href="#execute-a-source-code-file">Execute a source-code file</a></h2>
+<p>You can run Interp files (<code>*.it</code>) with the interp binary.
+Create a file called <code>hello.it</code>:</p>
+<pre><code class="language-cs">Print("Hello, world!");
+</code></pre>
+<p>Then just simply run the command:</p>
+<pre><code class="language-cs">$ interp hello.it
+Hello, world!
+</code></pre>
+<h2 id="repl"><a class="header" href="#repl">Repl</a></h2>
+<p>the interp binary can also spin up an interactive session (a Read-Eval-Print-Loop).</p>
+<pre><code class="language-cs">$ interp
+&gt; Print("Hello, world!")
+Hello, world!
+</code></pre>
+<p>To execute a file simply use <code>imp</code>.</p>
+<pre><code class="language-cs">&gt; imp "hello.it"
+Hello, world!
+</code></pre>
+<h2 id="where-next"><a class="header" href="#where-next">Where next?</a></h2>
+<p>A good place to start is to look at the various <a href="./examples.html">examples</a>! Happy coding :)</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
+<ul>
+<li><a href="./input.html">Hello, you!</a></li>
+<li><a href="./fib.html">Fibbonacci</a></li>
+<li><a href="./method_test.html">Birthday</a></li>
+<li><a href="./animal.html">Animals</a></li>
+<li><a href="./foreach.html">ForEach</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="fibbonacci-sequence"><a class="header" href="#fibbonacci-sequence">Fibbonacci Sequence</a></h1>
+<pre><code class="language-cs">fun Fib(n Int[0..]) Int[0..] {
+    if n &lt;= 1 {
+        ret 1;
+    }
+    ret Fib(n - 1) + Fib(n - 2);
+}
+
+Print(Fib(9));
+# output: 55
+</code></pre>
+<blockquote>
+<p>Read more about <a href="./function.html">Functions</a>, <a href="./int.html">Integers</a>, <a href="./if.html">If Statement</a>, or <a href="./Print.html">Print</a></p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="birthday"><a class="header" href="#birthday">Birthday</a></h1>
+<pre><code class="language-cs">struct Person {
+    first_name String,
+    last_name String,
+    age Int[0..],
+    birthday Function&lt;Person, Void&gt;
+}
+
+fun Person(first_name String, last_name String, age Int[0..]) Person {
+    var obj = { first_name=first_name, last_name=last_name, age=age };
+    fun Birthday(self Person) {
+        self.age += 1;
+    }
+    obj.birthday = Birthday;
+    ret obj;
+}
+
+var samuel = Person(
+    "Samuel",
+    "Kriikkula",
+    19
+);
+
+Print(samuel.age); # 19
+samuel.birthday();
+Print(samuel.age); # 20
+</code></pre>
+<blockquote>
+<p>Read more about <a href="./struct.html">Structs</a>, <a href="./variable.html">variables</a>, <a href="./int.html">Integers</a>, <a href="./function.html">Functions</a>, <a href="./type.html">Types</a>, <a href="./record.html">Records</a>, or <a href="./print.html">Print</a></p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="animal"><a class="header" href="#animal">Animal</a></h1>
+<pre><code class="language-cs">mod animals {
+
+    atom Dog;
+    atom Cat;
+
+    enum AnimalType {
+        Dog, Cat
+    }
+
+    struct Animal {
+        type AnimalType,
+        name String,
+        age  Int[0..],
+    }
+
+    fun Animal(type AnimalType, name String, age Int[0..]) Animal {
+        var obj = { type=type, name=name, age=age };
+        ret obj;
+    }
+
+}
+
+var bob = animals::Animal(animals::Cat, "Bob", 2);
+
+Print(bob);
+# output: {"type" = Atom("animals::Cat"), "name" = "Bob", "age" = 2}
+</code></pre>
+<blockquote>
+<p>Read more about <a href="./module.html">modules</a>, <a href="./atom.html">Atoms</a>, <a href="./enum.html">Enums</a>, <a href="./struct.html">Structs</a>, <a href="./int.html">Integers</a>, <a href="./string.html">Strings</a>, <a href="./record.html">Records</a>, <a href="./function.html">Functions</a>, <a href="./variable.html">variables</a>, or <a href="./Print.html">Print</a></p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="foreach"><a class="header" href="#foreach">ForEach</a></h1>
+<pre><code class="language-cs">fun ForEach(function Function&lt;Any, Void&gt;, list List) {
+    var i = -1;
+    while list[i + 1] != void {
+        i += 1;
+        function(list[i]);
+    }
+}
+
+do or item in ForEach([1, 2, 3]) {
+    Print(item);
+}
+
+# output:
+# 1
+# 2
+# 3
+</code></pre>
+<blockquote>
+<p>Read more about <a href="./function.html">Functions</a>, <a href="./list.html">Lists</a>, <a href="./variable.html">variables</a>, <a href="./while.html">While Loops</a>, <a href="./for.html">For Loops</a>, or <a href="./Print.html">Print</a></p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="values"><a class="header" href="#values">Values</a></h1>
+<p>Interp implements the following primitives. They can be stored into <a href="./variable.html">variables</a> as well as they can be passed into <a href="./function.html">functions</a> as arguments.</p>
+<ul>
+<li><a href="./void.html">Void</a></li>
+<li><a href="./null.html">Null</a></li>
+<li><a href="./string.html">String</a></li>
+<li><a href="./int.html">Int</a></li>
+<li><a href="./float.html">Float</a></li>
+<li><a href="./bool.html">Bool</a></li>
+<li><a href="./list.html">List</a></li>
+<li><a href="./record.html">Record</a></li>
+<li><a href="./function.html">Function</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="void"><a class="header" href="#void">Void</a></h1>
+<p>Void (keyword <code>void</code>) has two uses.</p>
+<h2 id="denoting-nonexistent"><a class="header" href="#denoting-nonexistent">Denoting 'nonexistent'</a></h2>
+<p>When you reference a <a href="./variable.html">variable</a> or <a href="./record.html">field</a> that does not exist, you will get Void.
+This will also usually throw an error, except when checking if something is void.</p>
+<p>Assuming <code>variable</code> does not exist.</p>
+<p>The following is valid:</p>
+<pre><code class="language-cs">if variable == void {
+    Print("variable does not exists")
+}
+</code></pre>
+<p>The following throws an error:</p>
+<pre><code class="language-cs">Print(variable);
+</code></pre>
+<pre><code>&lt;stdin&gt;:1:7:mistaken reference to void. (possible typo)
+  |
+1 | Print(variable);
+  |       ^
+</code></pre>
+<h2 id="as-a-function-return-value"><a class="header" href="#as-a-function-return-value">As a function return value</a></h2>
+<p>Void as a return type means that the <a href="./function.html">function</a> never returns any value at all.
+If a return type is not specified, it defaults to Void</p>
+<p>These are equivalent:</p>
+<pre><code class="language-cs">fun PrintHello() {
+    Print("Hello");
+}
+</code></pre>
+<pre><code class="language-cs">fun PrintHello() Void {
+    Print("Hello");
+}
+</code></pre>
+<h2 id="lists"><a class="header" href="#lists">Lists</a></h2>
+<p>A <a href="./list.html">list</a> can't have Void as an item.
+When a List index returns Void it means the end of the List.</p>
+<h2 id="any-type"><a class="header" href="#any-type">Any type</a></h2>
+<p>Void is the only Value that does not fit in to the <a href="./type.html">Any type</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="null"><a class="header" href="#null">Null</a></h1>
+<p>Null (keyword <code>null</code>) means that the variable exists, but has no value.</p>
+<h1 id="as-a-type"><a class="header" href="#as-a-type">As a Type</a></h1>
+<p>A common use for Null is in an <a href="./type.html">Or type</a>. For example if you optionally need a <a href="./string.html">String</a>, you can use the <code>or</code> and <code>Null</code> type.</p>
+<pre><code class="language-cs">fun TakesOptionalString(str String or Null) {
+    Print(str);
+}
+
+TakesOptionalString("Hello");
+TakesOptionalString(null);
+</code></pre>
+<p>This will print either the string or <code>&lt;null&gt;</code></p>
+<h1 id="in-a-list"><a class="header" href="#in-a-list">In a List</a></h1>
+<p>Unlike <a href="./void.html">Void</a>, <a href="./list.html">Lists</a> can contain Null.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="string"><a class="header" href="#string">String</a></h1>
+<p>A String is a sequence of characters. They are encoded in UTF-8.</p>
+<p>A String literal is defined like so:</p>
+<pre><code class="language-cs">var string = "My String";
+</code></pre>
+<p>Strings can be printed with the <code>Print</code> function.</p>
+<pre><code class="language-cs">Print("Hello, world!");
+</code></pre>
+<h2 id="indexing"><a class="header" href="#indexing">Indexing</a></h2>
+<p>Strings can be indexed with <a href="./int.html">Ints</a>, index 0 is the first element.</p>
+<pre><code class="language-cs">string[3] # fourth unicode character
+</code></pre>
+<h2 id="concatenation"><a class="header" href="#concatenation">Concatenation</a></h2>
+<p>You can concatenate Strings with the <code>+</code> operator.</p>
+<pre><code class="language-cs">Print("Hello, " + "world!");
+</code></pre>
+<h2 id="format"><a class="header" href="#format">Format</a></h2>
+<p>Strings can be formatted with the <code>Format</code> function.</p>
+<pre><code class="language-cs">Print(Format("{} + {} = {}", 1, 2, 1 + 2));
+# Output = 1 + 2 = 3
+</code></pre>
+<h2 id="interpolation"><a class="header" href="#interpolation">Interpolation</a></h2>
+<p>Another way to format is interpolation.</p>
+<pre><code class="language-cs">Print("1 + 2 = {1 + 2}");
+# Output = 1 + 2 = 3
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="int"><a class="header" href="#int">Int</a></h1>
+<p>Ints are 64-bit signed integers.</p>
+<pre><code class="language-cs">var int = 123;
+</code></pre>
+<h2 id="math"><a class="header" href="#math">Math</a></h2>
+<p>The following mathematical operators are supported</p>
+<pre><code class="language-cs">1 + 2 # Addition
+1 - 2 # Subtraction
+1 * 2 # Multiplication
+1 / 2 # Division
+1 % 2 # Remainder
+1 ^ 2 # Power
+</code></pre>
+<h2 id="as-a-type-1"><a class="header" href="#as-a-type-1">As a type</a></h2>
+<p>The Int type matches all integers.</p>
+<p>Value ranges can be expressed as a type.
+<code>Int[0..10]</code> accepts an Int that is &gt;= 0 &amp; &lt; 10.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="float"><a class="header" href="#float">Float</a></h1>
+<p>Floats are 64-bit floating-point nubmers.</p>
+<pre><code class="language-cs">var float = 1.23;
+</code></pre>
+<h2 id="math-1"><a class="header" href="#math-1">Math</a></h2>
+<p>The following mathematical operators are supported</p>
+<pre><code class="language-cs">1 + 2 # Addition
+1 - 2 # Subtraction
+1 * 2 # Multiplication
+1 / 2 # Division
+1 % 2 # Remainder
+1 ^ 2 # Power
+</code></pre>
+<h2 id="as-a-type-2"><a class="header" href="#as-a-type-2">As a type</a></h2>
+<p>The Float type accepts all floating point numbers.</p>
+<p>Value ranges can be expressed as a type.
+<code>Float[1.2 .. 3.4]</code> accepts a Float that is &gt;= 1.2 &amp; &lt; 3.4.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bool"><a class="header" href="#bool">Bool</a></h1>
+<p>Booleans are either <code>true</code> or <code>false</code>.</p>
+<p>The most common use is the <a href="./if.html">If statement</a>.</p>
+<pre><code class="language-cs">if bool {
+    Print("bool == true");
+}
+</code></pre>
+<h2 id="operations"><a class="header" href="#operations">Operations</a></h2>
+<p>Bools can be crafted with some operators.</p>
+<pre><code class="language-cs">a == b        # Equation
+a != b        # Negative Equation
+a | b         # Or
+a &amp; b         # And
+a &lt; b         # Less Than
+a &gt; b         # More than
+a &lt;= b        # Less Than or Equals
+a &gt;= b        # More Than or Equals
+a is Type     # Fits into Type
+a is not Type # Does not Fit into Type
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="list"><a class="header" href="#list">List</a></h1>
+<p>Lists are sequences of values.</p>
+<pre><code class="language-cs">var list = [1, "str", true, [2.3]];
+</code></pre>
+<h2 id="indexing-1"><a class="header" href="#indexing-1">Indexing</a></h2>
+<p>Lists can be indexed with <a href="./int.html">Ints</a>, index 0 is the first element.</p>
+<pre><code class="language-cs">list[0]
+</code></pre>
+<p>Negative indicies start from the end, index -1 is the last element.</p>
+<pre><code class="language-cs">list[-1]
+</code></pre>
+<h2 id="concatenation-1"><a class="header" href="#concatenation-1">Concatenation</a></h2>
+<p>Lists can be concatenated with the <code>+</code> operator.</p>
+<pre><code class="language-cs">[1, 2, 3] + [4, 5, 6] == [1, 2, 3, 4, 5, 6]
+</code></pre>
+<h2 id="length"><a class="header" href="#length">Length</a></h2>
+<p>List length can be checked with the <code>Len</code> function.</p>
+<pre><code class="language-cs">Print(Len([1, 2, 3]));
+# output: 3
+</code></pre>
+<h2 id="slice"><a class="header" href="#slice">Slice</a></h2>
+<p>Lists can be sliced with the <code>..</code> operator.</p>
+<pre><code class="language-cs">var list = [1, 2, 3, 4];
+var slice = list[1..3];
+# slice == [2, 3]
+</code></pre>
+<h2 id="as-a-type-3"><a class="header" href="#as-a-type-3">As a Type</a></h2>
+<p>To match all lists, simply use <code>List</code> .
+To match a list which all values match a type, you can use a generic type argument.</p>
+<pre><code class="language-cs">fun TakesIntList(arg List&lt;Int&gt;) {
+    Print(arg)
+}
+</code></pre>
+<h2 id="void-1"><a class="header" href="#void-1">Void</a></h2>
+<p>Lists can't contain void. If an indexing operation returns void, it's outside of the list bounds.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="keyable"><a class="header" href="#keyable">Keyable</a></h1>
+<p>Records (or Dicts) are the most powerful Value in the language.
+They contain key-value-pairs. Keys and Values can be of any <a href="./type.html">Type</a>.</p>
+<p>Records can be constructed in a few ways:</p>
+<pre><code class="language-cs">var table = {foo = 1, bar = 2};
+
+var other_table = {}
+other_table.foo = 1;
+other_table.bar = 2;
+
+var third_table = {}
+third_table["foo"] = 1;
+third_table["bar"] = 2;
+
+# Other than strings can also be keys 
+third_table[3] = 3;
+
+Print(third_table);
+# output: {"foo" = 1, "bar" = 2, 3 = 3}
+</code></pre>
+<h2 id="keyvaluepairs"><a class="header" href="#keyvaluepairs">KeyValuePairs</a></h2>
+<p>You can iterate all field of an record with the KeyValuePairs function.</p>
+<pre><code class="language-cs">var table = {a = 1, b = 2};
+Print(KeyValuePairs(table));
+# output: [{"key" = "a", "value" = 1}, {"key" = "b", "value" = 2}]
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="variables"><a class="header" href="#variables">Variables</a></h1>
+<p>A variable has a name and holds a value. When a variable is referenced but does not exist <a href="./void.html">Void</a> is returned.</p>
+<p>Variables are defined with the <code>var</code> keyword.</p>
+<pre><code class="language-cs">var variable = "I'm the Value!";
+</code></pre>
+<p>After defining variables can be reassigned. Variables themselves do not have types designated for them.</p>
+<pre><code class="language-cs">variable = true;
+</code></pre>
+<p>Variables can be passed into <a href="./function.html">functions</a>. The value is copied.</p>
+<pre><code class="language-cs">Function(variable);
+</code></pre>
+<p>Functions can also take the reference of a variable, this way, the value is not copied.</p>
+<pre><code class="language-cs">Function(ref variable);
+</code></pre>
+<h2 id="in-place-operations"><a class="header" href="#in-place-operations">In-place operations</a></h2>
+<p>You can short-hand operators when assigning.</p>
+<pre><code class="language-cs">variable += 1;
+# Is the same as
+variable = variable + 1;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="functions"><a class="header" href="#functions">Functions</a></h1>
+<p>In Interp, functions are first-class-citizens.
+Functions are defined with the <code>fun</code> keyword.
+Parameters can be defined with the parameter name followed by a <a href="./type.html">Type</a>.
+The return type is specified after the parameter list. If no return type is specified, <a href="./void.html">Void</a> is assumed. Values are returned with the <code>ret</code> keyword.</p>
+<pre><code class="language-cs">fun MyFunction(param1 Int, param2 String) Bool {
+    ret true;
+}
+</code></pre>
+<p>This is a function returning Void.</p>
+<pre><code class="language-cs">fun PrintHello() {
+    Print("Hello, world!");
+}
+</code></pre>
+<p>Functions can be assigned to <a href="./variable.html">variables</a>.</p>
+<pre><code class="language-cs">var my_var = PrintHello;
+my_var();
+# Output: Hello, world!
+</code></pre>
+<p>Functions can take variables by reference.</p>
+<pre><code class="language-cs">var take_ref = 1;
+fun AddOne(arg Int) {
+    var += 1;
+}
+AddOne(ref take_ref);
+Print(take_ref);
+# Output: 2
+</code></pre>
+<h2 id="default-and-named-parameters"><a class="header" href="#default-and-named-parameters">Default and named parameters</a></h2>
+<p>Default values for paramters are allowed. Parameters can also be referred with their name.</p>
+<pre><code class="language-cs">fun Function(int foo, string bar = "default_string", baz Bool = false) {
+    ...
+}
+
+Function(1, baz=true) # allowed
+</code></pre>
+<h2 id="lambda-functions"><a class="header" href="#lambda-functions">Lambda Functions</a></h2>
+<p>Lambdas are a shorthand for defining functions.</p>
+<pre><code class="language-cs">fun ExecLambda(lambda Any) {
+    lambda(1, 2);
+}
+
+ExecLambda(|a, b| =&gt; Print(a + b));
+# Output: 3
+</code></pre>
+<h2 id="as-a-type-4"><a class="header" href="#as-a-type-4">As a type</a></h2>
+<p>To match all functions, simply use <code>Function</code>.</p>
+<p>If the function has a specific return type, use <code>Function&lt;ReturnType&gt;</code>.
+The arguments can be specified before the return type. If you want a function that takes an <a href="./int.html">Int</a> and returns an Int, you use <code>Function&lt;Int, Int&gt;</code>.</p>
+<pre><code class="language-cs">fun TakesFunction(func Function&lt;Int, Int, Int&gt;) {
+    Print(func(1, 2));
+}
+
+fun Sum(x Int, y Int) Int {
+    ret x + y;
+}
+
+TakesFunction(Sum);
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="io"><a class="header" href="#io">IO</a></h1>
+<p>IO is implemented with some built-in functions.</p>
+<h2 id="standard-streams"><a class="header" href="#standard-streams">Standard Streams</a></h2>
+<ul>
+<li><a href="./Print.html">Print</a> can be used to send text into standard out or standard error.</li>
+<li><a href="./input.html">Input</a> is used to get input from the user from standard in.</li>
+</ul>
+<h2 id="file-io"><a class="header" href="#file-io">File IO</a></h2>
+<ul>
+<li><a href="./file.html">WriteFile</a> can be used to write text in to a file.</li>
+<li><a href="./file.html">ReadFile</a> can be used to read text from a file.</li>
+<li><a href="./bytes.html">WriteBytes</a> can be used to write bytes in to a file.</li>
+<li><a href="./bytes.html">ReadBytes</a> can be used to read bytes from a file.</li>
+</ul>
+<h2 id="process-io"><a class="header" href="#process-io">Process IO</a></h2>
+<ul>
+<li><a href="./exec.html">Exec</a> can be used to execute a command.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="print-function"><a class="header" href="#print-function">Print Function</a></h1>
+<p>Print is a versatile function.
+Print a value to standard out followed by a newline.</p>
+<pre><code class="language-cs">Print(1);
+</code></pre>
+<p>Print also can take a few optional arguments.</p>
+<pre><code class="language-cs">Print(
+    1,
+    newline=false, # Optional, defaults to true
+    stream="stderr" # Optional, "stdout" or "stderr", defaults to "stdout",
+);
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="user-input"><a class="header" href="#user-input">User Input</a></h1>
+<p>User input is gotten with the Input <a href="./function.html">function</a>.</p>
+<pre><code class="language-cs">var name = Input(prompt="Enter name: ");
+Print("Hello, {name}!");
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="byte-io"><a class="header" href="#byte-io">Byte IO</a></h1>
+<p>Interp defines two <a href="./function.html">functions</a> for reading and writing bytes from and to a file.</p>
+<pre><code class="language-cs">WriteBytes("text.txt", [55, 54]);
+var bytes = ReadBytes("test.txt");
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exec"><a class="header" href="#exec">Exec</a></h1>
+<p>With the Exec function you can execute an executable with arguments, and get the standard output as a <a href="./string.html">String</a>.</p>
+<pre><code class="language-cs">Print(Exec("echo", "Hello, world!");)
+# output: Hello, world!
+</code></pre>
+<p>You can disable capturing with the capture argument</p>
+<pre><code class="language-cs">Exec("echo", "Hello, world!", capture=false)
+# output: Hello, world!
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="if-statement"><a class="header" href="#if-statement">If Statement</a></h1>
+<p>If statements execute the associated code if the <a href="./bool.html">condition</a> is <code>true</code>.
+Else If statement executes if the If condition above is <code>false</code> and the associated condition is <code>true</code>. Else executes if the above If statements are all <code>false</code>.</p>
+<pre><code class="language-cs">if a {
+    Print("a is true");
+} else if b {
+    Print("a is false and b is true");
+} else {
+    Print("a and b are both false");
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-while-loop"><a class="header" href="#the-while-loop">The While Loop</a></h1>
+<p>While loops execute the given code in a loop until the condition evaluates to <code>false</code> or a break statement is encountered.</p>
+<pre><code class="language-cs">var i = 0;
+while i &lt; 10 {
+    Print(i);
+    i += 1;
+}
+</code></pre>
+<p>While loops can be named.
+<code>brk</code> exits the loop, if not named, the inner-most loop in exited from.
+<code>cnt</code> jumps to the start of the loop.</p>
+<pre><code class="language-cs">loop: while true {
+    while true {
+        brk loop;
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="do-loop"><a class="header" href="#do-loop">Do Loop</a></h1>
+<p>Do loops in Interp are unlike in other languages. They are simply a syntatic sugar.</p>
+<p>Let's define an iterator function:</p>
+<pre><code class="language-cs">fun Range(function Function&lt;Int, Void&gt;, from Int, to Int) {
+    var i = from - 1;
+    while i &lt; to {
+        i += 1; # make the loop operation before the function call statement
+                # so that the continue statement works as intended
+        function(i);
+    }
+}
+</code></pre>
+<p>These two are identical!</p>
+<pre><code class="language-cs">do i in Range(0, 10) {
+    Print(i);
+}
+
+# output:
+# 0
+# 1
+# 2
+# etc.
+
+fun LoopBody(i Int) {
+    Print(i);
+}
+Range(LoopBody, 0, 10);
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="types"><a class="header" href="#types">Types</a></h1>
+<p>The following simple types are pre-defined:</p>
+<ul>
+<li><strong>Any</strong> type matches any value except <a href="./void.html">Void</a>.</li>
+<li><strong>Void</strong> type matches <a href="./void.html">Void</a>.</li>
+<li><strong>Null</strong> type matches <a href="./null.html">Null</a>.</li>
+<li><strong>String</strong> type matches <a href="./strng.html">Strings</a>.</li>
+<li><strong>Int</strong> type matches <a href="./int.html">Int</a>.</li>
+<li><strong>Float</strong> type matches <a href="./float.html">Floats</a>.</li>
+<li><strong>Bool</strong> type matches <a href="./bool.html">Booleans</a>.</li>
+<li><strong>List</strong> type, read more <a href="./list.html">here</a>.</li>
+<li><strong>Function</strong> type, read more <a href="./function.html">here</a></li>
+</ul>
+<h2 id="and-and-or-types"><a class="header" href="#and-and-or-types">And and Or Types</a></h2>
+<p>And and Or Types are also allowed</p>
+<pre><code class="language-cs">1 is Int or String # true
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="structs"><a class="header" href="#structs">Structs</a></h1>
+<p>Structs define a type that matches any record that has the specified fiels and types.</p>
+<pre><code class="language-cs">struct Dog {
+    breed String,
+    name String,
+    age Int[0..]
+}
+
+pub Dog(breed String, name String, age Int[0..]) Dog {
+    ret { breed=breed, name=name, age=age };
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="enums"><a class="header" href="#enums">Enums</a></h1>
+<p>An enum defines a type that can match any of the types given.</p>
+<pre><code class="language-cs">enum Number {
+    Int,
+    Float
+}
+
+fun Add(x Number, y Number) Number {
+    ret x + y;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="atoms"><a class="header" href="#atoms">Atoms</a></h1>
+<p>Atoms behave as types and values at the same time.</p>
+<pre><code class="language-cs">atom Car;
+atom Plane;
+
+for Travel(method Car or Plane) {
+    ..
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="modules"><a class="header" href="#modules">Modules</a></h1>
+<p>Modules group code into namespaces.</p>
+<pre><code class="language-cs">mod math {
+    
+    fun Sin(n Float) Float {
+        ...
+    }
+    
+    fun Cos(n Float) Float {
+        ...
+    }
+
+}
+</code></pre>
+<p>Module members can be accessed anywhere with the full path specified.</p>
+<pre><code class="language-cs">Print(math::Sin(2.3));
+</code></pre>
+<p>Use statements (unique to each file) can be used to bring module members into the global namespace.</p>
+<pre><code class="language-cs">use math;
+Print(Sin(2.3));
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="thread"><a class="header" href="#thread">Thread</a></h1>
+<p>Interp supports real multi-threading with the ability to send messages to and from threads.</p>
+<h2 id="simple-use"><a class="header" href="#simple-use">Simple Use</a></h2>
+<pre><code class="language-cs">var thread = do Thread() {
+    var i = 0;
+    var sum = 0;
+    while i &lt; 1000 {
+        sum += i;
+    }
+    ret sum;
+}
+
+var sum = Join(thread);
+Print(sum);
+</code></pre>
+<h2 id="separate-virtual-machines"><a class="header" href="#separate-virtual-machines">Separate Virtual Machines</a></h2>
+<p>Each thread in Interp has it's own virtual machine. There is no GIL like in Python or Ruby. This means that memory is <strong>NOT</strong> shared! You will have to import all libraries separately.</p>
+<pre><code class="language-cs">
+imp "lib.it";
+
+var thread = do Thread() {
+    # this is needed here to use functions from 'lib.it' within the thread
+    imp "lib.it";
+}
+</code></pre>
+<h2 id="thread-arguments"><a class="header" href="#thread-arguments">Thread Arguments</a></h2>
+<pre><code class="language-cs">var thread = do x, y in Thread(1, 2) {
+    if x == 1 &amp; y == 2 {
+        Print("Yes, they are equal!");
+    }
+}
+
+Join(thread);
+</code></pre>
+<h2 id="messags"><a class="header" href="#messags">Messags</a></h2>
+<p>Threads can send messages with eachother. Parent-thread argument comes before thread arguments.</p>
+<pre><code class="language-cs">var thread = do parent_thread in Thread() {
+    Send(parent_thread, "Hello from thread!");
+    var message_from_parent = Recv(parent_thread);
+    Print(message_from_parent);
+}
+
+var message_from_thread = Recv(thread);
+Print(message_from_thread);
+Send(thread, "Hello from parent!");
+Join(thread);
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="importing-code"><a class="header" href="#importing-code">Importing Code</a></h1>
+<p>The <code>imp</code> statement can be used to include Interp code.</p>
+<p>imp_this.it:</p>
+<pre><code class="language-cs">Print("Hello");
+</code></pre>
+<p>main.it:</p>
+<pre><code class="language-cs">imp "imp_this.it"
+# output: Hello
+</code></pre>
+<h1 id="importing-libraries"><a class="header" href="#importing-libraries">Importing Libraries</a></h1>
+<p>To import libraries, such as <a href="./oak.html">oak</a> with <a href="./packi.html">packi</a>, use the <code>as</code> keyword.</p>
+<pre><code class="language-cs">imp "@packi/lib.it"
+packi::Require("oak", "0.0.1");
+imp "@oak-0.0.1/lib.it" as oak;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="comments"><a class="header" href="#comments">Comments</a></h1>
+<p>Comments are single-line and start with <code>#</code></p>
+<pre><code class="language-cs">Print("Hello!") # comment
+</code></pre>
+<blockquote>
+<p>Read more about <a href="./string.html">Strings</a> or <a href="./Print.html">Print</a></p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="debugging"><a class="header" href="#debugging">Debugging</a></h1>
+<p>For debugging, Interp offers the Breakpoint <a href="./function.html">function</a>.
+It spawns a REPL anywhere you want.</p>
+<pre><code class="language-cs">var i = 1;
+Breakpoint();
+&gt; i
+1
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="foreign-functions"><a class="header" href="#foreign-functions">Foreign Functions</a></h1>
+<p>Pure Rust functions can be called from Interp.</p>
+<h2 id="importforeign"><a class="header" href="#importforeign">ImportForeign</a></h2>
+<p>This function can be used to import a foreign function.</p>
+<pre><code class="language-cs">var MyForeignFunc = ImportForeign(
+    "path_to_shared_object",
+    "ForeignFunc"
+);
+
+MyForeignFunc();
+</code></pre>
+<h2 id="creating-a-foreign-function"><a class="header" href="#creating-a-foreign-function">Creating a Foreign Function</a></h2>
+<p>Start by creating a cargo project.</p>
+<pre><code class="language-bash">$ cargo new extend_interp_lib --lib
+</code></pre>
+<p>Edit the Cargo.toml:</p>
+<pre><code class="language-toml">[package]
+name = "interp_extend_lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+interplang = { path = "../../interp/interplang" } # Path to interplang
+
+[lib]
+crate-type=["dylib"] # Make a dynamic rust library
+</code></pre>
+<p>Edit src/lib.rs:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use interplang::vm::value::Value;
+use interplang::parser::loc::Loc;
+
+#[no_mangle]
+pub fn Interp_Hello(args: Vec&lt;(Value, Loc)&gt;, named_args: Vec&lt;(String, Value, Loc)&gt;, loc: Loc) -&gt; Value {
+    Value::String("Hello".to_owned())
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Then you can import it with ImportForeign:</p>
+<pre><code class="language-cs">pub HelloFunction = ImportForeign(
+    "target/debug/libinterp_extend_lib.so",
+    "Hello"
+);
+
+Print(HelloFunction());
+# output: Hello
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="packi"><a class="header" href="#packi">Packi</a></h1>
+<p>Packi is the package manager for the scripting language.
+Read more <a href="https://gitlab.com/interplang/packi-script" target="_blank">here</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="libraries"><a class="header" href="#libraries">Libraries</a></h1>
+<p>Documentation for some common Interp libraries. Each one is available as a <a href="https://packi.kriikkula.net">packi package</a></p>
+<h2 id="list-1"><a class="header" href="#list-1">List</a></h2>
+<ul>
+<li><a href="./oak.html">oak</a> - the de facto standard library</li>
+<li><a href="./ap.html">ap</a> - Command line argument parser.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="oak"><a class="header" href="#oak">Oak</a></h1>
+<p>Oak is the de-facto standard library for the language.
+<a href="https://packi.kriikkula.net/oak">Get from Packi</a>.</p>
+<hr />
+<h2 id="fs-module"><a class="header" href="#fs-module">fs module</a></h2>
+<hr />
+<h3 id="setworkingdirdir-string-bool-or-null"><a class="header" href="#setworkingdirdir-string-bool-or-null">SetWorkingDir(dir String) Bool or Null</a></h3>
+<p>Set the current working directory.</p>
+<hr />
+<h3 id="globglob-string-liststring"><a class="header" href="#globglob-string-liststring">Glob(glob String) List&lt;String&gt;</a></h3>
+<p>List files with a unix glob.</p>
+<hr />
+<h3 id="enum-filetype"><a class="header" href="#enum-filetype">enum FileType</a></h3>
+<p>File<br />
+Directory</p>
+<p>Specifies if a file is a dictory or a regular file.</p>
+<hr />
+<h3 id="filetypefile-string-filetype-or-null"><a class="header" href="#filetypefile-string-filetype-or-null">FileType(file String) FileType or Null</a></h3>
+<p>List files with a unix glob.</p>
+<hr />
+<h3 id="makedirname-string"><a class="header" href="#makedirname-string">MakeDir(name String)</a></h3>
+<p>Create a new directory.</p>
+<hr />
+<h3 id="removefile-string-mode-filetype"><a class="header" href="#removefile-string-mode-filetype">Remove(file String, mode FileType)</a></h3>
+<p>Delete a file or directory.</p>
+<hr />
+<h2 id="iter-module"><a class="header" href="#iter-module">iter module</a></h2>
+<hr />
+<h3 id="foreachfunction-functionany-void-iterable-iterable"><a class="header" href="#foreachfunction-functionany-void-iterable-iterable">ForEach(function Function&lt;Any, Void&gt;, iterable Iterable)</a></h3>
+<p>Iterate and apply the function to each of the items in a list or characters in a string.</p>
+<hr />
+<h3 id="range"><a class="header" href="#range">Range</a></h3>
+<p>Apply function to every integer between the specified range.
+The step is the amount incremented after each integer.</p>
+<hr />
+<h3 id="loopfunction-function"><a class="header" href="#loopfunction-function">Loop(function Function)</a></h3>
+<p>Apply the function indefinitely.
+Break can be called inside the function.</p>
+<hr />
+<h3 id="zipfunction-function-list0-iterable-list1-iterable"><a class="header" href="#zipfunction-function-list0-iterable-list1-iterable">Zip(function Function, list0 Iterable, list1 Iterable)</a></h3>
+<p>Applies the function to corresponding items in both lists.
+For example: function(list0[0], list1[0]); function(list0[1], list1[1]);</p>
+<hr />
+<h3 id="findhaystack-iterable-needle-any-int-or-null"><a class="header" href="#findhaystack-iterable-needle-any-int-or-null">Find(haystack Iterable, needle Any) Int or Null</a></h3>
+<p>Return the index of the item in the list.
+Returns null if the item is not present inside the list.</p>
+<hr />
+<h3 id="containshaystack-iterable-needle-any-bool"><a class="header" href="#containshaystack-iterable-needle-any-bool">Contains(haystack Iterable, needle Any) Bool</a></h3>
+<p>Returns true if the list contains the item.</p>
+<hr />
+<h2 id="list-module"><a class="header" href="#list-module">list module</a></h2>
+<hr />
+<h3 id="reverselist-list-list"><a class="header" href="#reverselist-list-list">Reverse(list List) List</a></h3>
+<p>Reverses the list.</p>
+<hr />
+<h3 id="initializesize-int0-value-any-list"><a class="header" href="#initializesize-int0-value-any-list">Initialize(size Int[0..], value Any) List</a></h3>
+<p>Initialize a list of size with the specified value as each element.</p>
+<hr />
+<h2 id="math-module"><a class="header" href="#math-module">math module</a></h2>
+<hr />
+<h3 id="sinn-float-float"><a class="header" href="#sinn-float-float">Sin(n Float) Float</a></h3>
+<p>Sine function</p>
+<hr />
+<h3 id="cosn-float-float"><a class="header" href="#cosn-float-float">Cos(n Float) Float</a></h3>
+<p>Cosine function</p>
+<hr />
+<h3 id="tann-float-float"><a class="header" href="#tann-float-float">Tan(n Float) Float</a></h3>
+<p>Tangent function</p>
+<hr />
+<h3 id="asinn-float-float"><a class="header" href="#asinn-float-float">Asin(n Float) Float</a></h3>
+<p>Arcsine function</p>
+<hr />
+<h3 id="acosn-float-float"><a class="header" href="#acosn-float-float">Acos(n Float) Float</a></h3>
+<p>Arc cosine function</p>
+<hr />
+<h3 id="atann-float-float"><a class="header" href="#atann-float-float">Atan(n Float) Float</a></h3>
+<p>Inverse tangent function</p>
+<hr />
+<h3 id="sinhn-float-float"><a class="header" href="#sinhn-float-float">Sinh(n Float) Float</a></h3>
+<p>Hyperbolic sine function</p>
+<hr />
+<h3 id="coshn-float-float"><a class="header" href="#coshn-float-float">Cosh(n Float) Float</a></h3>
+<p>Hyperbolic cosine function</p>
+<hr />
+<h3 id="atan2n-float-n2-float-float"><a class="header" href="#atan2n-float-n2-float-float">Atan2(n Float, n2 Float) Float</a></h3>
+<p>2-argument arctangent function</p>
+<hr />
+<h3 id="maxnumbers-listnumber-number"><a class="header" href="#maxnumbers-listnumber-number">Max(numbers List&lt;Number&gt;) Number</a></h3>
+<p>Returns the largest nubmer.</p>
+<hr />
+<h3 id="minnumbers-listnumber-number"><a class="header" href="#minnumbers-listnumber-number">Min(numbers List&lt;Number&gt;) Number</a></h3>
+<p>Returns the smallest number.</p>
+<hr />
+<h2 id="os-module"><a class="header" href="#os-module">os module</a></h2>
+<hr />
+<h3 id="enum-os"><a class="header" href="#enum-os">enum OS</a></h3>
+<p>Windows, Linux, MacOS</p>
+<p>Type of the current operating system.</p>
+<hr />
+<h3 id="shellcommand-string-capture-bool--true-string-or-null"><a class="header" href="#shellcommand-string-capture-bool--true-string-or-null">Shell(command String, capture Bool = true) String or Null</a></h3>
+<p>Execute a script on the default shell of the operating system.</p>
+<hr />
+<h3 id="quitn-int"><a class="header" href="#quitn-int">Quit(n Int)</a></h3>
+<p>Exit the current process.</p>
+<hr />
+<h2 id="string-module"><a class="header" href="#string-module">string module</a></h2>
+<hr />
+<h3 id="startswithstring-string-pattern-string-bool"><a class="header" href="#startswithstring-string-pattern-string-bool">StartsWith(string String, pattern String) Bool</a></h3>
+<p>Returns true if the string starts with the pattern.</p>
+<hr />
+<h3 id="endswithstring-string-pattern-string-bool"><a class="header" href="#endswithstring-string-pattern-string-bool">EndsWith(string String, pattern String) Bool</a></h3>
+<p>Returns true if the string ends with the pattern.</p>
+<hr />
+<h3 id="findstring-string-pattern-string-int-or-null"><a class="header" href="#findstring-string-pattern-string-int-or-null">Find(string String, pattern String) Int or Null</a></h3>
+<p>Returns the index of the patterns first character where the pattern is found in the string, or null.</p>
+<hr />
+<h3 id="containsstring-string-pattern-string-bool"><a class="header" href="#containsstring-string-pattern-string-bool">Contains(string String, pattern String) Bool</a></h3>
+<p>Returns true if the pattern is found as a substring inside the string.</p>
+<hr />
+<h3 id="trimstartstring-string-pattern-string-or-liststring--whitespace-string"><a class="header" href="#trimstartstring-string-pattern-string-or-liststring--whitespace-string">TrimStart(string String, pattern String or List&lt;String&gt; = WHITESPACE) String</a></h3>
+<p>Remove every occurance of the pattern(s) from the start of the string.</p>
+<hr />
+<h3 id="trimendstring-string-pattern-string-or-liststring--whitespace-string"><a class="header" href="#trimendstring-string-pattern-string-or-liststring--whitespace-string">TrimEnd(string String, pattern String or List&lt;String&gt; = WHITESPACE) String</a></h3>
+<p>Remove every occurance of the pattern(s) from the end of the string.</p>
+<hr />
+<h3 id="trimstring-string-pattern-string-or-liststring--whitespace-string"><a class="header" href="#trimstring-string-pattern-string-or-liststring--whitespace-string">Trim(string String, pattern String or List&lt;String&gt; = WHITESPACE) String</a></h3>
+<p>Remove every occurance of the pattern(s) from the string.</p>
+<hr />
+<h3 id="splitstring-string-separator-string---ignoreempties-bool--false-liststring"><a class="header" href="#splitstring-string-separator-string---ignoreempties-bool--false-liststring">Split(string String, separator String = "", ignoreEmpties Bool = false) List&lt;String&gt;</a></h3>
+<p>Splits the string into substrings.</p>
+<hr />
+<h3 id="replacestring-string-from-string-to-string-string"><a class="header" href="#replacestring-string-from-string-to-string-string">Replace(string String, from String, to String) String</a></h3>
+<p>Replace every occurance of "from" to "to".</p>
+<hr />
+<h3 id="joinstrings-liststring-separator-string---string"><a class="header" href="#joinstrings-liststring-separator-string---string">Join(strings List&lt;String&gt;, separator String = "") String</a></h3>
+<p>Join strings together separarted by another string.</p>
+<hr />
+<h3 id="chartounicodechar-string-int-or-null"><a class="header" href="#chartounicodechar-string-int-or-null">CharToUnicode(char String) Int or Null</a></h3>
+<p>Returns the unicode code point for the specified character.
+char must be a single character.</p>
+<hr />
+<h3 id="unicodetocharcodepoint-int-string-or-null"><a class="header" href="#unicodetocharcodepoint-int-string-or-null">UnicodeToChar(codepoint Int) String or Null</a></h3>
+<p>Returns the character for the specified unicode code point.
+char must be a single character.</p>
+<hr />
+<h3 id="lowercasestring-string-string"><a class="header" href="#lowercasestring-string-string">Lowercase(string String) String</a></h3>
+<p>Returns the lowercase variant of the string.</p>
+<hr />
+<h3 id="uppercasestring-string-string"><a class="header" href="#uppercasestring-string-string">Uppercase(string String) String</a></h3>
+<p>Returns the uppercase variant of the string.</p>
+<hr />
+<h2 id="time-module"><a class="header" href="#time-module">time module</a></h2>
+<hr />
+<h3 id="enum-duration"><a class="header" href="#enum-duration">enum Duration</a></h3>
+<p>Int[0..]</p>
+<p>Duration of time.</p>
+<hr />
+<h3 id="enum-time"><a class="header" href="#enum-time">enum Time</a></h3>
+<p>Int[0..]</p>
+<p>Represents a date/time.</p>
+<hr />
+<h3 id="millisecondsmilliseconds-int0-duration"><a class="header" href="#millisecondsmilliseconds-int0-duration">Milliseconds(milliseconds Int[0..]) Duration</a></h3>
+<p>Duration as milliseconds.</p>
+<hr />
+<h3 id="secondsseconds-int0-duration"><a class="header" href="#secondsseconds-int0-duration">Seconds(seconds Int[0..]) Duration</a></h3>
+<p>Duration as seconds.</p>
+<hr />
+<h3 id="minutesminutes-int0-duration"><a class="header" href="#minutesminutes-int0-duration">Minutes(minutes Int[0..]) Duration</a></h3>
+<p>Duration as minutes.</p>
+<hr />
+<h3 id="sleepduration-duration"><a class="header" href="#sleepduration-duration">Sleep(duration Duration)</a></h3>
+<p>Pause the thread for the specified duration of milliseconds.</p>
+<hr />
+<h3 id="now-time"><a class="header" href="#now-time">Now() Time</a></h3>
+<p>Get the current time in milliseconds .</p>
+<hr />
+<h3 id="elapsedtime-time-duration"><a class="header" href="#elapsedtime-time-duration">Elapsed(time Time) Duration</a></h3>
+<p>Returns the duration of time from the specified time to this moment as milliseconds.</p>
+<hr />
+<h3 id="formatdurationtime-duration-string"><a class="header" href="#formatdurationtime-duration-string">FormatDuration(time Duration) String</a></h3>
+<p>Get a nice format for a duration.</p>
+<hr />
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ap"><a class="header" href="#ap">ap</a></h1>
+<p>Command line argument parser.
+<a href="https://packi.kriikkula.net/ap">Get from Packi</a>.</p>
+<h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
+<pre><code>
+var argsdef = {
+    args = {
+        files = { name = "files", flag = false, help = "Files to process", multiple = true },
+        color = { name = "color",  flag = false, help = "Set the color", multiple = false },
+        flag  = { name = "flag", flag = true, help = "Set this flag for fun", multiple = false },
+        p     = { name = "port", flag = false, help = "Port number", multiple = false },
+    },
+    rest = {
+        name = "strings",
+        multiple = true,
+    }
+};
+
+var args = ap::Handle(argsdef, versiontext = "Packi+ 1.0.0");
+
+Print("strings: {args.rest}");
+Print("files:   {args.args.files}");
+Print("color:   {args.args.color}");
+Print("flag:    {args.args.flag != void}");
+Print("port:    {args.args.p}");
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="curl"><a class="header" href="#curl">curl</a></h1>
+<p>Curl is a <a href="https://curl.se/libcurl/">libcurl</a> wrapper.
+<a href="https://packi.kriikkula.net/curl">Get from Packi</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
