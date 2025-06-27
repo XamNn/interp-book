@@ -46,7 +46,7 @@ Threads can send messages with eachother. Parent-thread argument comes before th
 var thread = do parent_thread in Thread() {
     Send(parent_thread, "Hello from thread!");
     var message_from_parent = Recv(parent_thread);
-    Print(message);
+    Print(message_from_parent);
 }
 
 var message_from_thread = Recv(thread);
